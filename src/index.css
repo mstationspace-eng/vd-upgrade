@@ -1,0 +1,606 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Desert-inspired color palette */
+    --background: 45 15% 97%;
+    --foreground: 30 25% 15%;
+
+    --card: 45 20% 98%;
+    --card-foreground: 30 25% 15%;
+
+    --popover: 45 20% 98%;
+    --popover-foreground: 30 25% 15%;
+
+    --primary: 200 85% 35%;
+    --primary-foreground: 45 25% 98%;
+
+    --secondary: 35 40% 88%;
+    --secondary-foreground: 30 25% 25%;
+
+    --muted: 35 30% 92%;
+    --muted-foreground: 30 15% 45%;
+
+    --accent: 25 65% 75%;
+    --accent-foreground: 30 25% 15%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 45 25% 98%;
+
+    --border: 35 25% 85%;
+    --input: 35 25% 90%;
+    --ring: 200 85% 35%;
+
+    /* Desert theme colors */
+    --sand-light: 40 35% 85%;
+    --sand-medium: 35 30% 70%;
+    --sand-dark: 30 25% 55%;
+    --ocean-blue: 200 85% 35%;
+    --ocean-light: 200 65% 55%;
+
+    /* Map overlay colors */
+    --overlay-bg: 45 25% 98%;
+    --overlay-shadow: 30 15% 25%;
+
+    /* Gradients */
+    --gradient-map: linear-gradient(
+      135deg,
+      hsl(var(--sand-light)),
+      hsl(var(--sand-medium))
+    );
+    --gradient-water: linear-gradient(
+      135deg,
+      hsl(var(--ocean-blue)),
+      hsl(var(--ocean-light))
+    );
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark desert theme */
+    --background: 25 15% 8%;
+    --foreground: 45 25% 92%;
+
+    --card: 25 20% 10%;
+    --card-foreground: 45 25% 92%;
+
+    --popover: 25 20% 10%;
+    --popover-foreground: 45 25% 92%;
+
+    --primary: 200 75% 45%;
+    --primary-foreground: 25 15% 8%;
+
+    --secondary: 30 15% 20%;
+    --secondary-foreground: 45 25% 88%;
+
+    --muted: 30 10% 25%;
+    --muted-foreground: 45 15% 65%;
+
+    --accent: 25 45% 35%;
+    --accent-foreground: 45 25% 92%;
+
+    --destructive: 0 74% 50%;
+    --destructive-foreground: 45 25% 92%;
+
+    --border: 30 15% 25%;
+    --input: 30 15% 25%;
+    --ring: 200 75% 45%;
+
+    /* Dark desert colors */
+    --sand-light: 35 20% 25%;
+    --sand-medium: 30 15% 20%;
+    --sand-dark: 25 10% 15%;
+    --ocean-blue: 200 75% 45%;
+    --ocean-light: 200 55% 65%;
+
+    --overlay-bg: 25 20% 10%;
+    --overlay-shadow: 45 25% 92%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+/* OpenLayers Map Styles */
+.ol-popup {
+  position: absolute;
+  background-color: hsl(var(--overlay-bg));
+  box-shadow: 0 4px 20px hsl(var(--overlay-shadow) / 0.15);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid hsl(var(--border));
+  min-width: 280px;
+  transform: translate(-50%, -100%);
+  margin-bottom: 12px;
+  backdrop-filter: blur(8px);
+  transition: var(--transition-smooth);
+  top: -60px;
+}
+
+.ol-popup:after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top-color: hsl(var(--overlay-bg));
+  border-bottom: 0;
+  margin-left: -10px;
+}
+
+.ol-popup-closer {
+  position: absolute;
+  top: 8px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: hsl(var(--muted-foreground));
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+}
+.ol-popup-closer-en {
+  right: 12px;
+}
+.ol-popup-closer-ar {
+  left: 12px;
+}
+
+.ol-popup-closer:hover {
+  color: hsl(var(--foreground));
+  background: hsl(var(--muted));
+}
+
+.landmark-marker {
+  width: 12px;
+  height: 12px;
+  bottom: -70px;
+  /* background: hsl(var(--primary)); */
+  /* background-color:red; */
+  /* border: 3px solid hsl(var(--background)); */
+  background: red;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px hsl(var(--overlay-shadow) / 0.3);
+  cursor: pointer;
+  transition: var(--transition-bounce);
+  position: relative;
+  display: none;
+}
+
+.landmark-marker:hover {
+  /* transform: scale(1.2); */
+  /* background: hsl(var(--accent)); */
+}
+
+.landmark-marker::before {
+  content: "";
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translate(-50%);
+  width: 2px;
+  height: 24px;
+
+  /* background: hsl(var(--background)); */
+  /* border-radius: 50%; */
+  background: red;
+  /* display:none */
+}
+
+/* Control buttons */
+.ol-zoom {
+  top: 100px;
+  left: 8px;
+}
+
+.ol-zoom button {
+  background: hsl(var(--overlay-bg)) !important;
+  color: hsl(var(--foreground)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 8px !important;
+  margin: 2px !important;
+  box-shadow: 0 2px 8px hsl(var(--overlay-shadow) / 0.1) !important;
+  transition: var(--transition-smooth) !important;
+}
+
+.ol-zoom button:hover {
+  background: hsl(var(--accent)) !important;
+}
+
+/* Moving Clouds Animation */
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50px;
+  opacity: 0.6;
+  animation: float 20s infinite linear;
+}
+
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50px;
+}
+
+.cloud-1 {
+  width: 80px;
+  height: 40px;
+  top: 20%;
+  left: -100px;
+  animation-duration: 25s;
+}
+
+.cloud-1::before {
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  left: 10px;
+}
+
+.cloud-1::after {
+  width: 60px;
+  height: 30px;
+  top: -15px;
+  right: 10px;
+}
+
+.cloud-2 {
+  width: 60px;
+  height: 30px;
+  top: 40%;
+  left: -80px;
+  animation-duration: 30s;
+  animation-delay: -10s;
+}
+
+.cloud-2::before {
+  width: 40px;
+  height: 40px;
+  top: -20px;
+  left: 8px;
+}
+
+.cloud-2::after {
+  width: 50px;
+  height: 25px;
+  top: -12px;
+  right: 8px;
+}
+
+.cloud-3 {
+  width: 100px;
+  height: 50px;
+  top: 60%;
+  left: -120px;
+  animation-duration: 35s;
+  animation-delay: -20s;
+}
+
+.cloud-3::before {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  left: 12px;
+}
+
+.cloud-3::after {
+  width: 70px;
+  height: 35px;
+  top: -18px;
+  right: 12px;
+}
+
+@keyframes float {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(100vw + 200px));
+  }
+}
+
+.dark .cloud,
+.dark .cloud::before,
+.dark .cloud::after {
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0.3;
+}
+
+/* Landmark Bubble Styles */
+.landmark-bubble {
+  position: relative;
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.2s ease-in-out;
+}
+
+.landmark-bubble:hover {
+  transform: scale(1.05);
+}
+
+.landmark-bubble-content {
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 4px 20px hsl(var(--overlay-shadow) / 0.2);
+  border: 1px solid hsl(var(--border));
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease-in-out;
+}
+
+.landmark-bubble:hover .landmark-bubble-content {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  box-shadow: 0 6px 25px hsl(var(--overlay-shadow) / 0.3);
+}
+
+.landmark-bubble-pointer {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid hsl(var(--card));
+  transition: border-top-color 0.2s ease-in-out;
+}
+
+.landmark-bubble:hover .landmark-bubble-pointer {
+  border-top-color: hsl(var(--accent));
+}
+
+/* RTL Support for Arabic */
+[dir="rtl"] .landmark-bubble-content,
+[dir="rtl"] .city-label-content,
+[dir="rtl"] .country-label-content {
+  font-family: "Tajawal", "Arial", sans-serif;
+  direction: rtl;
+  text-align: right;
+}
+
+/* Ensure Arabic text displays properly in all label types */
+.city-label-content,
+.country-label-content {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  direction: inherit;
+}
+
+[dir="rtl"] .city-label-content,
+[dir="rtl"] .country-label-content {
+  font-family: "Arial Unicode MS", "Tahoma", sans-serif;
+}
+
+/* Country Label Styles */
+.country-label {
+  position: relative;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.country-label-content {
+  color: black;
+  padding: 4px 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* Dark mode country labels */
+.dark .country-label-content {
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* City Label Styles (Saudi cities - grey color) */
+.city-label {
+  position: relative;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.city-label-content {
+  color: #666666;
+  padding: 4px 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+  transition: var(--transition-smooth);
+}
+
+.city-label:hover .city-label-content {
+  color: #444444;
+  transform: scale(1.05);
+}
+
+/* Dark mode city labels */
+.dark .city-label-content {
+  color: #cccccc;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.dark .city-label:hover .city-label-content {
+  color: #ffffff;
+}
+
+.overlay-container {
+  position: relative;
+  /* Adjust size based on your needs, a small size works fine */
+  width: 1px;
+  height: 1px;
+}
+
+/* The small anchor circle */
+.landmark-circle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  background: white !important;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none; /* Make sure this element doesn't block clicks on the map */
+}
+
+/* The vertical connector line */
+.landmark-line {
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  height: 24px; /* Adjust height as needed */
+  background: white;
+  transform: translateX(-50%);
+  top: calc(50% - 6px - 24px); /* Align relative to the circle's top */
+  z-index: 2;
+}
+
+/* The box containing the icon/text */
+.landmark-box {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  height: fit-content;
+  padding: 4px 16px;
+  border: none;
+  border-radius: 8px;
+  background: white;
+  color: #666666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+  z-index: 4;
+  pointer-events: auto; /* Allow clicks on the box */
+  top: -48px;
+  white-space: nowrap;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover effect for the landmark-box */
+.landmark-box:hover {
+  color: #000000b8;
+  transform: translateX(-50%) scale(1.05); /* Slightly enlarge the box */
+}
+
+/* ===============================
+* CLOUDS
+=============================== */
+.clouds-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* Using vh for full viewport height */
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2000;
+}
+
+/* This targets the inner divs with class 'cloudy' */
+.cloudy {
+  position: absolute;
+}
+
+/* This targets the image inside the cloudy divs */
+.cloudy img {
+  max-width: 500px;
+  will-change: transform;
+}
+
+/* This targets the first cloud specifically */
+.cloudy-01 {
+  top: -30px;
+  animation: cloudAnimate-01 14s linear infinite;
+  /* animation-delay: 8s; A slight delay for a better effect */
+  /* left: -10vw; */
+}
+
+/* This targets the second cloud specifically */
+.cloudy-02 {
+  bottom: -30px;
+  animation: cloudAnimate-02 10s linear infinite;
+  /* animation-delay: 3s; */
+  /* left: -10vw; */
+}
+
+/* The animation itself */
+@keyframes cloudAnimate-01 {
+  0% {
+    transform: translateX(-100vw);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
+@keyframes cloudAnimate-02 {
+  0% {
+    transform: translateX(-30vw);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
